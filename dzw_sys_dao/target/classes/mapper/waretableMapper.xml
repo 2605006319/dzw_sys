@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.waretableMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.pojo.waretable" >
+    <id column="wareId" property="wareid" jdbcType="INTEGER" />
+    <result column="wareName" property="warename" jdbcType="VARCHAR" />
+    <result column="wareSort" property="waresort" jdbcType="INTEGER" />
+    <result column="wareAmount" property="wareamount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    wareId, wareName, wareSort, wareAmount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from waretable
+    where wareId = #{wareid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from waretable
+    where wareId = #{wareid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.accp.pojo.waretable" >
+    insert into waretable (wareId, wareName, wareSort, 
+      wareAmount)
+    values (#{wareid,jdbcType=INTEGER}, #{warename,jdbcType=VARCHAR}, #{waresort,jdbcType=INTEGER}, 
+      #{wareamount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.pojo.waretable" >
+    insert into waretable
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wareid != null" >
+        wareId,
+      </if>
+      <if test="warename != null" >
+        wareName,
+      </if>
+      <if test="waresort != null" >
+        wareSort,
+      </if>
+      <if test="wareamount != null" >
+        wareAmount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wareid != null" >
+        #{wareid,jdbcType=INTEGER},
+      </if>
+      <if test="warename != null" >
+        #{warename,jdbcType=VARCHAR},
+      </if>
+      <if test="waresort != null" >
+        #{waresort,jdbcType=INTEGER},
+      </if>
+      <if test="wareamount != null" >
+        #{wareamount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.pojo.waretable" >
+    update waretable
+    <set >
+      <if test="warename != null" >
+        wareName = #{warename,jdbcType=VARCHAR},
+      </if>
+      <if test="waresort != null" >
+        wareSort = #{waresort,jdbcType=INTEGER},
+      </if>
+      <if test="wareamount != null" >
+        wareAmount = #{wareamount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where wareId = #{wareid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.pojo.waretable" >
+    update waretable
+    set wareName = #{warename,jdbcType=VARCHAR},
+      wareSort = #{waresort,jdbcType=INTEGER},
+      wareAmount = #{wareamount,jdbcType=INTEGER}
+    where wareId = #{wareid,jdbcType=INTEGER}
+  </update>
+</mapper>
